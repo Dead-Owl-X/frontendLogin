@@ -25,19 +25,19 @@ export class AddEditComponent implements OnInit {
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
 
-        // form with validation rules
+        // formulario de validacion
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             username: ['', Validators.required],
-            // password only required in add mode
+            //solo para registro
             password: ['', [Validators.minLength(6), ...(!this.id ? [Validators.required] : [])]]
         });
 
-        this.title = 'Add User';
+        this.title = 'Agregar usuario';
         if (this.id) {
-            // edit mode
-            this.title = 'Edit User';
+            // editar usuario
+            this.title = 'Editar usuario';
             this.loading = true;
             this.accountService.getById(this.id)
                 .pipe(first())
@@ -67,7 +67,7 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
-                    this.alertService.success('User saved', { keepAfterRouteChange: true });
+                    this.alertService.success('usuario agregado', { keepAfterRouteChange: true });
                     this.router.navigateByUrl('/users');
                 },
                 error: error => {
