@@ -3,6 +3,7 @@
 Este repositorio contiene el proyecto de la materia **Sistemas Distribuidos**.
 
 ## Instrucciones
-clonar repositorio
-npm i para instalar dependencias 
-ng serve para compilar
+#### Clonar repositorio 
+#### **npm i** para instalar dependencias 
+#### **ng serve** para compilar
+
