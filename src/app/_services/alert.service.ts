@@ -9,12 +9,12 @@ export class AlertService {
     private subject = new Subject<Alert>();
     private defaultId = 'default-alert';
 
-    // enable subscribing to alerts observable
+    //habilitar alertas en el observador
     onAlert(id = this.defaultId): Observable<Alert> {
         return this.subject.asObservable().pipe(filter(x => x && x.id === id));
     }
 
-    // convenience methods
+    //metodo para mostrar alertas
     success(message: string, options?: AlertOptions) {
         this.alert(new Alert({ ...options, type: AlertType.Success, message }));
     }
@@ -31,13 +31,13 @@ export class AlertService {
         this.alert(new Alert({ ...options, type: AlertType.Warning, message }));
     }
 
-    // main alert method    
+    //alerta principal
     alert(alert: Alert) {
         alert.id = alert.id || this.defaultId;
         this.subject.next(alert);
     }
 
-    // clear alerts
+    //resetear alertas
     clear(id = this.defaultId) {
         this.subject.next(new Alert({ id }));
     }

@@ -26,16 +26,16 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    // convenience getter for easy access to form fields
+   //get de acceso a los campos del formulario
     get f() { return this.form.controls; }
 
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
+        // vuelve a resetear las alertas
         this.alertService.clear();
 
-        // stop here if form is invalid
+          // se detiene si el formulario es inválido
         if (this.form.invalid) {
             return;
         }
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
-                    // get return url from query parameters or default to home page
+                    //se obtiene la url de retorno de la ruta actual o se redirige a la página principal
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     this.router.navigateByUrl(returnUrl);
                 },

@@ -27,7 +27,7 @@ export class AccountService {
     login(username: string, password: string) {
         return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
             .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
+               //almacena al usuario en el local storage para mantener la sesión activa entre recargas de pagina
                 localStorage.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);
                 return user;
@@ -35,7 +35,7 @@ export class AccountService {
     }
 
     logout() {
-        // remove user from local storage and set current user to null
+        //eliminar el usuario del local storage y redirigir a la página de inicio de sesión
         localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/account/login']);
@@ -56,13 +56,13 @@ export class AccountService {
     update(id: string, params: any) {
         return this.http.put(`${environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
+                // actualiza el usuario en el local storage si es el usuario actual
                 if (id == this.userValue?.id) {
                     // update local storage
                     const user = { ...this.userValue, ...params };
                     localStorage.setItem('user', JSON.stringify(user));
 
-                    // publish updated user to subscribers
+                    //muestra el usuario actualizado a los suscriptores
                     this.userSubject.next(user);
                 }
                 return x;
@@ -72,7 +72,7 @@ export class AccountService {
     delete(id: string) {
         return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
-                // auto logout if the logged in user deleted their own record
+                //cierre de sesión si el usuario eliminado es el usuario actual
                 if (id == this.userValue?.id) {
                     this.logout();
                 }

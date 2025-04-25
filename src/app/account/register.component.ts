@@ -28,16 +28,16 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    // convenience getter for easy access to form fields
+    //get de acceso a los campos del formulario
     get f() { return this.form.controls; }
 
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
+        // vuelve a resetear las alertas
         this.alertService.clear();
 
-        // stop here if form is invalid
+        // se detiene si el formulario es inválido
         if (this.form.invalid) {
             return;
         }
